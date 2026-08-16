@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id                  String       @id @default(uuid())
+  name                String
+  email               String       @unique
+  targetCalories      Int          @default(2000)
+  targetActiveMinutes Int          @default(30)
+  targetSteps         Int          @default(10000)
+  stravaAccessToken   String?
+  stravaRefreshToken  String?
+  stravaExpiresAt     Int?
+  stravaAthleteId     String?
+  createdAt           DateTime     @default(now())
+  dailyLogs           DailyLog[]
+  workouts            Workout[]
+  dailyScores         DailyScore[]
+}
+
+model DailyLog {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date              String   // Format: YYYY-MM-DD
+  steps             Int      @default(0)
+  activeMinutes     Int      @default(0)
+  caloriesBurned    Int      @default(0)
+  foodLog           String?  // Markdown list of meals or descriptions
+  caloriesConsumed  Int      @default(0)
+  proteinConsumed   Int      @default(0)
+  carbsConsumed     Int      @default(0)
+  fatConsumed       Int      @default(0)
+
+  @@unique([userId, date])
+}
+
+model Workout {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           String   // Format: YYYY-MM-DD
+  title          String
+  type           String   // e.g., Run, Ride, WeightTraining, Yoga
+  duration       Int      // In minutes
+  distance       Float    // In meters
+  avgHeartRate   Float?
+  calories       Int?
+  relativeEffort Int?     // Strava's Relative Effort
+  source         String   // "strava" or "manual"
+  createdAt      DateTime @default(now())
+}
+
+model DailyScore {
+  id            String   @id @default(uuid())
+  userId            String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date          String   // Format: YYYY-MM-DD
+  score         Int      // Range: 0 - 100
+  rationale     String   // Explanation of the score
+  socialMessage String   // Roast or boast text for the public feed
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, date])
+}
