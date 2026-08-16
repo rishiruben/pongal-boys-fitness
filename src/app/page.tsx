@@ -502,7 +502,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerContainer}>
           <div className={styles.logoArea}>
-            <span className={styles.logoIcon}>⚡</span>
+            <span className={styles.logoIcon}>🏆</span>
             <span className={styles.logoText}>PONGAL BOYS FITNESS</span>
           </div>
 
