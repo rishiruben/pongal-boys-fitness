@@ -3,7 +3,7 @@ import * as fs from "fs";
 import prisma from "../src/lib/db";
 
 async function main() {
-  console.log("=== Starting Hermes Loop Integration Test ===");
+  console.log("=== Starting AI Loop Integration Test ===");
 
   // 1. Ensure the database is seeded first
   console.log("Step 1: Running database seed...");
@@ -26,8 +26,8 @@ async function main() {
   }
   console.log("✓ 'evaluate-day' script verified. Structured prompt successfully generated.");
 
-  // 3. Mock the Hermes Agent LLM evaluation response
-  console.log("\nStep 3: Simulating Hermes Agent LLM JSON response...");
+  // 3. Mock the AI Agent LLM evaluation response
+  console.log("\nStep 3: Simulating AI Agent LLM JSON response...");
   
   // Find users in the db to get their exact IDs
   const users = await prisma.user.findMany();
@@ -110,7 +110,7 @@ async function main() {
   }
 
   console.log("✓ Database validation successful. All scores, rationales, and social messages match simulated LLM output!");
-  console.log("\n=== HERMES LOOP INTEGRATION TEST PASSED SUCCESSFULLY! ===");
+  console.log("\n=== AI LOOP INTEGRATION TEST PASSED SUCCESSFULLY! ===");
 }
 
 main()

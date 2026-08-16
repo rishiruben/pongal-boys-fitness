@@ -10,7 +10,7 @@
     "seed": "tsx scripts/seed.ts",
     "evaluate-day": "tsx scripts/evaluate-day.ts",
     "save-scores": "tsx scripts/save-scores.ts",
-    "test-loop": "tsx scripts/test-hermes-loop.ts"
+    "test-loop": "tsx scripts/test-ai-loop.ts"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.9.1",

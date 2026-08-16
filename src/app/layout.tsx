@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Hermes Fit Arena 🏆",
-  description: "Workout and food logging challenge with normalized scoring run by Hermes Agent.",
+  title: "Pongal Boys Fitness 🏆",
+  description: "Workout and food logging challenge with normalized scoring run by AI.",
 };
 
 export default function RootLayout({

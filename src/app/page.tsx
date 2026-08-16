@@ -503,7 +503,7 @@ export default function Home() {
         <div className={styles.headerContainer}>
           <div className={styles.logoArea}>
             <span className={styles.logoIcon}>⚡</span>
-            <span className={styles.logoText}>HERMES FIT ARENA</span>
+            <span className={styles.logoText}>PONGAL BOYS FITNESS</span>
           </div>
 
           <div className={styles.userSelectorArea}>
@@ -645,7 +645,7 @@ export default function Home() {
               <div className={`${styles.roastCard} fade-in`}>
                 <div className={styles.scoreRow}>
                   <div>
-                    <h3 className={styles.scoreDateLabel}>Hermes Evaluation Score</h3>
+                    <h3 className={styles.scoreDateLabel}>AI Evaluation Score</h3>
                     <div className={styles.scoreDisplay}>
                       {dailyScore.score}
                       <span className={styles.scoreMax}>/100</span>
@@ -655,7 +655,7 @@ export default function Home() {
                 </div>
                 
                 <div className={styles.roastBox}>
-                  <strong>🔥 Hermes Daily Summary: </strong> "{dailyScore.socialMessage}"
+                  <strong>🤖 AI Daily Summary: </strong> "{dailyScore.socialMessage}"
                 </div>
 
                 <div className={styles.rationaleBox}>
@@ -665,9 +665,9 @@ export default function Home() {
             ) : (
               <div className={styles.pendingBox}>
                 <span className={styles.pendingIcon}>⏳</span>
-                <strong>Awaiting Hermes Evaluation</strong>
+                <strong>Awaiting AI Evaluation</strong>
                 <span style={{ fontSize: "0.75rem", marginTop: "0.25rem" }}>
-                  The local Hermes Agent calculates scores nightly. Complete your logs below!
+                  The local AI Agent calculates scores nightly. Complete your logs below!
                 </span>
               </div>
             )}
@@ -1023,7 +1023,7 @@ export default function Home() {
       </main>
       
       <footer style={{ marginTop: "auto", borderTop: "1px solid rgba(255,255,255,0.03)", padding: "1.5rem 0", color: "var(--muted)", fontSize: "0.85rem", textAlign: "center" }}>
-        Hermes Fit Challenge Arena • Built for local hosting & distributed fun 🚀
+        Pongal Boys Fitness • Built for local hosting & distributed fun 🚀
       </footer>
     </div>
   );
