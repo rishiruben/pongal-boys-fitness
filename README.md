@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pongal Boys Fitness
 
-## Getting Started
+A self-hosted fitness and nutrition challenge board with automated Strava workout syncing and a nightly AI-evaluated daily scoring pipeline.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Challenge Leaderboard (`/api/leaderboard`):** Tracks participant standings and daily scores.
+- **Activity & Nutrition Logging (`/api/log`):** Logs daily workouts and nutrition entries.
+- **Strava OAuth & Sync (`/api/strava/auth`, `/api/strava/callback`, `/api/strava/sync`):** Automatically imports workouts from Strava, with built-in **Simulator Mode** when Strava API credentials are left blank for local testing.
+- **Participant Management (`/api/users`):** Manage challenge participants and profiles.
+- **Nightly AI Scoring Pipeline:** CLI scripts export daily logs as an evaluation prompt and ingest structured JSON scores back into SQLite.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js 16 + React 19 + TypeScript
+- **Database:** SQLite via Prisma 7 (`@prisma/adapter-better-sqlite3` & `better-sqlite3`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Quick Start (Local Development)
 
-## Learn More
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Create a `.env` file in the project root:
+   ```env
+   DATABASE_URL="file:./dev.db"
+   NEXT_PUBLIC_BASE_URL="http://localhost:3000"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   # Optional: leave blank to run in Simulator Mode
+   STRAVA_CLIENT_ID=""
+   STRAVA_CLIENT_SECRET=""
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Generate the Prisma client and initialize the SQLite database:
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev --name init
+   ```
 
-## Deploy on Vercel
+4. *(Optional)* Seed sample participants and workouts:
+   ```bash
+   npm run seed
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Nightly AI Scoring Scripts
+
+- `npm run evaluate-day` — Generates the evaluation prompt for yesterday's logs (or pass a date: `npm run evaluate-day -- 2026-08-15`).
+- `npm run save-scores -- ./temp_scores.json` — Saves evaluated JSON scores into SQLite.
+- `npm run test-loop` — Exercises the AI scoring loop locally.
+
+For full Ubuntu production hosting with PM2, Cloudflare Tunnel, and cron automation, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+## License
+
+MIT — see [LICENSE](./LICENSE) for details.
